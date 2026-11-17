@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setup Creator</title>
+<meta name="description" content="Ofertas de tecnologia para criadores de conteúdo no Mercado Livre: microfones, fones, webcams, iluminação, periféricos, SSDs e acessórios para celular.">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDgwIiBoZWlnaHQ9IjEwODAiIHZpZXdCb3g9IjAgMCAxMDgwIDEwODAiPgo8cmVjdCB3aWR0aD0iMTA4MCIgaGVpZ2h0PSIxMDgwIiBmaWxsPSIjZmY3YTNkIi8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDU0MCw1NDApIHJvdGF0ZSgtMjApIHNjYWxlKDEuMDUpIj4KPHBhdGggZD0iTSAtMzAwIDAgTCAtMTcwIC0xOTAgUSAtMTU1IC0yMTAgLTEzMCAtMjEwIEwgMjYwIC0yMTAgUSAzMDAgLTIxMCAzMDAgLTE3MCBMIDMwMCAxNzAgUSAzMDAgMjEwIDI2MCAyMTAgTCAtMTMwIDIxMCBRIC0xNTUgMjEwIC0xNzAgMTkwIFoiIGZpbGw9IiMxNzE5MWYiLz48Y2lyY2xlIGN4PSItMTg1IiBjeT0iMCIgcj0iMzYiIGZpbGw9IiNmZjdhM2QiLz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTUsMCkiPjxwYXRoIGQ9Ik0gMCAtMTA1IEwgMCAxMDUgUSAwIDEyNSAxOCAxMTUgTCAxODUgMTggUSAyMDAgMCAxODUgLTE4IEwgMTggLTExNSBRIDAgLTEyNSAwIC0xMDUgWiIgZmlsbD0iI2ZmN2EzZCIvPjwvZz48L2c+PC9zdmc+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Layout: faixa de oferta + cabeçalho, filtros fixos, grade de cards de produto com "medidor" de desconto */
+:root {
+  --bg: #f4f2ee;
+  --surface: #ffffff;
+  --ink: #17191f;
+  --muted: #5d616b;
+  --line: #dcd8d0;
+  --accent: #e2551b;      /* laranja "clip" do medidor */
+  --accent-ink: #ffffff;
+  --signal: #1f8a5b;      /* verde do medidor */
+  --font-display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --radius: 14px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121418; --surface: #1b1e24; --ink: #eef0f3; --muted: #a2a7b2;
+    --line: #2c3039; --accent: #ff7a3d; --accent-ink: #15110e; --signal: #3cc488;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121418; --surface: #1b1e24; --ink: #eef0f3; --muted: #a2a7b2;
+  --line: #2c3039; --accent: #ff7a3d; --accent-ink: #15110e; --signal: #3cc488;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+.promo { background: var(--accent); color: var(--accent-ink); font-weight: 600; font-size: 14px; }
+.promo .wrap { display: flex; gap: 12px; align-items: center; justify-content: space-between; padding-block: 8px; flex-wrap: wrap; }
+.promo .mono { font-family: var(--font-mono); font-size: 13px; }
+
+header.top { border-bottom: 1px solid var(--line); background: var(--surface); }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 16px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand-mark { width: 36px; height: 36px; flex: none; }
+.brand-name { font-family: var(--font-display); font-weight: 800; font-size: 24px; letter-spacing: -0.02em; }
+.ig { font-weight: 600; font-size: 14px; text-decoration: none; border: 1px solid var(--line); padding: 8px 14px; border-radius: 999px; }
+.ig:hover { border-color: var(--ink); }
+
+.hero { padding: 40px 0 24px; }
+.hero h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 5vw, 48px); line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 12px; text-wrap: balance; max-width: 18ch; }
+.hero p { color: var(--muted); margin: 0; max-width: 60ch; font-size: 17px; }
+
+.notice { margin: 20px 0 0; padding: 12px 16px; border: 1px dashed var(--accent); border-radius: 10px; font-size: 14px; color: var(--ink); background: color-mix(in srgb, var(--accent) 8%, var(--surface)); }
+
+.controls { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); padding: 12px 0; }
+.controls .wrap { display: flex; flex-direction: column; gap: 12px; }
+.chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+.chip { flex: none; font: 600 14px var(--font-body); padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
+.row input, .row select { font: 15px var(--font-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.row input { flex: 1 1 220px; min-width: 0; }
+
+main { padding: 24px 0 48px; }
+.count { color: var(--muted); font-size: 14px; margin: 0 0 14px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); display: flex; flex-direction: column; overflow: hidden; }
+.thumb { aspect-ratio: 4 / 3; background: color-mix(in srgb, var(--ink) 5%, var(--surface)); display: grid; place-items: center; position: relative; }
+.thumb img { width: 100%; height: 100%; object-fit: contain; padding: 12px; }
+.thumb svg { width: 56px; height: 56px; color: var(--muted); }
+.badge { position: absolute; top: 10px; left: 10px; background: var(--accent); color: var(--accent-ink); font: 600 13px var(--font-mono); padding: 4px 8px; border-radius: 6px; }
+.tag-ex { position: absolute; top: 10px; right: 10px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border: 1px solid var(--line); background: var(--surface); padding: 2px 6px; border-radius: 6px; }
+.body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.cat { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.card h3 { font: 600 16px/1.3 var(--font-body); margin: 0; }
+.specs { display: flex; flex-wrap: wrap; gap: 6px; }
+.specs span { font: 500 12px var(--font-mono); color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 2px 6px; }
+.price { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-top: auto; font-variant-numeric: tabular-nums; }
+.price .now { font: 800 22px var(--font-display); letter-spacing: -0.02em; }
+.price .old { color: var(--muted); text-decoration: line-through; font-size: 14px; }
+.meter { display: flex; gap: 2px; height: 6px; }
+.meter i { flex: 1; border-radius: 1px; background: var(--line); }
+.meter i.on { background: var(--signal); }
+.meter i.on.hot { background: var(--accent); }
+.meter-label { font-size: 12px; color: var(--muted); }
+.buy { display: block; text-align: center; text-decoration: none; font-weight: 600; padding: 11px 14px; border-radius: 10px; background: var(--ink); color: var(--bg); margin-top: 4px; }
+.buy:hover { background: var(--accent); color: var(--accent-ink); }
+.empty { text-align: center; color: var(--muted); padding: 40px 0; }
+
+footer { border-top: 1px solid var(--line); background: var(--surface); }
+footer .wrap { padding-block: 24px; font-size: 13px; color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
+footer strong { color: var(--ink); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .card { transition: transform .15s ease, border-color .15s ease; }
+  .card:hover { transform: translateY(-2px); border-color: var(--ink); }
+}
+</style>
+</head>
+<body>
+
+<div class="promo"><div class="wrap">
+  <span>Black Friday: ofertas para o seu setup atualizadas todo dia</span>
+  <span class="mono">Preços podem mudar a qualquer momento</span>
+</div></div>
+
+<header class="top"><div class="wrap">
+  <a class="brand" href="#" aria-label="Setup Creator, início">
+    <svg class="brand-mark" aria-hidden="true" viewBox="-540 -540 1080 1080"><circle r="540" fill="#ff7a3d"/><g transform="rotate(-20) scale(1.05)"><path d="M -300 0 L -170 -190 Q -155 -210 -130 -210 L 260 -210 Q 300 -210 300 -170 L 300 170 Q 300 210 260 210 L -130 210 Q -155 210 -170 190 Z" fill="#17191f"/><circle cx="-185" r="36" fill="#ff7a3d"/><path transform="translate(-5,0)" d="M 0 -105 L 0 105 Q 0 125 18 115 L 185 18 Q 200 0 185 -18 L 18 -115 Q 0 -125 0 -105 Z" fill="#ff7a3d"/></g></svg>
+    <span class="brand-name">Setup Creator</span>
+  </a>
+  <!-- TROQUE pelo endereço do seu Instagram -->
+  <a class="ig" href="https://instagram.com/setupcreator.ofertas" id="ig-link">@setupcreator.ofertas</a>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <h1>Ofertas de tecnologia para quem cria conteúdo</h1>
+  <p>Áudio, câmeras, iluminação, periféricos e acessórios para gravar com o celular, tudo com desconto no Mercado Livre. Antes de entrar aqui, cada item tem o preço conferido por quem também produz.</p>
+  <p class="notice" id="example-notice"><strong>Itens de exemplo.</strong> Os produtos e preços abaixo são ilustrativos. Troque pelos seus links de afiliado na lista <code>PRODUTOS</code> dentro do código.</p>
+</div></section>
+
+<div class="controls"><div class="wrap">
+  <div class="chips" id="chips" role="group" aria-label="Filtrar por categoria"></div>
+  <div class="row">
+    <label for="q" class="sr" style="position:absolute;left:-9999px">Buscar</label>
+    <input id="q" type="search" placeholder="Buscar: microfone, webcam, SSD, tripé…">
+    <label for="sort" style="position:absolute;left:-9999px">Ordenar</label>
+    <select id="sort">
+      <option value="desconto">Maior desconto</option>
+      <option value="menor">Menor preço</option>
+      <option value="maior">Maior preço</option>
+      <option value="recentes">Mais recentes</option>
+    </select>
+  </div>
+</div></div>
+
+<main><div class="wrap">
+  <p class="count" id="count"></p>
+  <div class="grid" id="grid"></div>
+</div></main>
+
+<footer><div class="wrap">
+  <span><strong>Setup Creator</strong> · ofertas de tecnologia para criadores</span>
+  <span>Este site participa do Programa de Afiliados e Criadores do Mercado Livre. Ao comprar pelos links, podemos receber uma comissão, sem custo extra para você.</span>
+  <span>Preços e disponibilidade são definidos pelo Mercado Livre e podem mudar sem aviso. Confira o valor final antes de comprar.</span>
+</div></footer>
+
+<script>
+/* ============================================================
+   COMO ATUALIZAR AS OFERTAS
+   1. No painel de Afiliados do Mercado Livre, gere o link do produto.
+   2. Copie um bloco { ... } abaixo, cole e troque os dados.
+   3. "imagem" é opcional: cole o endereço da foto do produto.
+   4. Quando trocar todos os exemplos, mude "exemplo" para false
+      (ou apague a linha) e mude MOSTRAR_AVISO para false.
+   ============================================================ */
+const MOSTRAR_AVISO = true;
+const INSTAGRAM = "https://instagram.com/setupcreator.ofertas";   // seu perfil
+
+const PRODUTOS = [
+  { nome: "Microfone condensador USB cardioide", categoria: "Microfones", preco: 289.90, precoAntigo: 399.90,
+    specs: ["Condensador", "Cardioide", "USB-C"], link: "#", imagem: "", data: "2026-11-15", exemplo: true },
+  { nome: "Microfone dinâmico XLR para voz e podcast", categoria: "Microfones", preco: 449.00, precoAntigo: 549.00,
+    specs: ["Dinâmico", "XLR", "Supercardioide"], link: "#", imagem: "", data: "2026-11-14", exemplo: true },
+  { nome: "Fone de estúdio fechado para monitoração", categoria: "Fones", preco: 379.90, precoAntigo: 529.90,
+    specs: ["Fechado", "32 Ω", "Cabo P2/P10"], link: "#", imagem: "", data: "2026-11-15", exemplo: true },
+  { nome: "Fone semiaberto para mixagem", categoria: "Fones", preco: 699.00, precoAntigo: 849.00,
+    specs: ["Semiaberto", "250 Ω"], link: "#", imagem: "", data: "2026-11-12", exemplo: true },
+  { nome: "Interface de áudio 2 entradas com phantom", categoria: "Interfaces", preco: 899.00, precoAntigo: 1199.00,
+    specs: ["2 in / 2 out", "24-bit/192 kHz", "48 V"], link: "#", imagem: "", data: "2026-11-15", exemplo: true },
+  { nome: "Webcam Full HD com microfone embutido", categoria: "Câmeras", preco: 199.90, precoAntigo: 279.90,
+    specs: ["1080p 30 fps", "Foco automático", "USB"], link: "#", imagem: "", data: "2026-11-16", exemplo: true },
+  { nome: "Painel LED bicolor para vídeo", categoria: "Iluminação", preco: 219.90, precoAntigo: 319.90,
+    specs: ["3200–5600 K", "Dimerizável"], link: "#", imagem: "", data: "2026-11-15", exemplo: true },
+  { nome: "Ring light 26 cm com tripé", categoria: "Iluminação", preco: 79.90, precoAntigo: 119.90,
+    specs: ["3 temperaturas", "Suporte p/ celular"], link: "#", imagem: "", data: "2026-11-16", exemplo: true },
+  { nome: "Microfone de lapela sem fio para celular", categoria: "Celular", preco: 129.90, precoAntigo: 199.90,
+    specs: ["2 transmissores", "USB-C / Lightning"], link: "#", imagem: "", data: "2026-11-16", exemplo: true },
+  { nome: "Estabilizador gimbal de 3 eixos para celular", categoria: "Celular", preco: 399.00, precoAntigo: 549.00,
+    specs: ["3 eixos", "Rastreamento facial"], link: "#", imagem: "", data: "2026-11-14", exemplo: true },
+  { nome: "Teclado mecânico compacto 75%", categoria: "Periféricos", preco: 249.90, precoAntigo: 349.90,
+    specs: ["Hot-swap", "Bluetooth + USB"], link: "#", imagem: "", data: "2026-11-13", exemplo: true },
+  { nome: "SSD externo portátil 1 TB", categoria: "Armazenamento", preco: 499.00, precoAntigo: 699.00,
+    specs: ["1 TB", "USB-C 10 Gbps"], link: "#", imagem: "", data: "2026-11-15", exemplo: true },
+  { nome: "Braço articulado de mesa para microfone", categoria: "Acessórios", preco: 89.90, precoAntigo: 129.90,
+    specs: ["Rosca 5/8\"", "Fixação por grampo"], link: "#", imagem: "", data: "2026-11-11", exemplo: true },
+];
+
+/* ---------- daqui para baixo não precisa mexer ---------- */
+const ICONES = {
+  Microfones: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg>',
+  Fones: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg>',
+  Interfaces: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="10" rx="2"/><circle cx="7" cy="12" r="2"/><circle cx="13" cy="12" r="2"/><path d="M17 10h2M17 14h2"/></svg>',
+  "Câmeras": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="10" r="6"/><circle cx="12" cy="10" r="2.5"/><path d="M8 20h8M12 16v4"/></svg>',
+  Celular: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>',
+  "Periféricos": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 11h1M10 11h1M14 11h1M18 11h1M7 14h10"/></svg>',
+  Armazenamento: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 17h1"/></svg>',
+  "Iluminação": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M12 15v6M8 21h8M8 8h8M8 11h8"/></svg>',
+  "Acessórios": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20l7-7M11 13l3-8 5 5-8 3z"/></svg>',
+};
+const brl = v => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+const desconto = p => p.precoAntigo > p.preco ? Math.round((1 - p.preco / p.precoAntigo) * 100) : 0;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+let categoria = "Todas";
+const grid = document.getElementById("grid");
+const q = document.getElementById("q");
+const sort = document.getElementById("sort");
+
+document.getElementById("ig-link").href = INSTAGRAM;
+if (!MOSTRAR_AVISO) document.getElementById("example-notice").remove();
+
+function chips() {
+  const cats = ["Todas", ...new Set(PRODUTOS.map(p => p.categoria))];
+  const box = document.getElementById("chips");
+  box.innerHTML = cats.map(c => `<button class="chip" type="button" aria-pressed="${c === categoria}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
+  box.querySelectorAll(".chip").forEach(b => b.onclick = () => { categoria = b.dataset.c; chips(); render(); });
+}
+
+function card(p) {
+  const d = desconto(p);
+  const on = Math.min(10, Math.round(d / 5));       // 1 barra a cada 5% de desconto
+  const meter = Array.from({ length: 10 }, (_, i) => `<i class="${i < on ? "on" : ""}${i < on && i >= 6 ? " hot" : ""}"></i>`).join("");
+  const thumb = p.imagem
+    ? `<img src="${esc(p.imagem)}" alt="${esc(p.nome)}" loading="lazy" onerror="this.replaceWith(document.createRange().createContextualFragment(ICONES['${esc(p.categoria)}']||''))">`
+    : (ICONES[p.categoria] || "");
+  return `<article class="card">
+    <div class="thumb">${thumb}${d ? `<span class="badge">−${d}%</span>` : ""}${p.exemplo ? `<span class="tag-ex">Exemplo</span>` : ""}</div>
+    <div class="body">
+      <span class="cat">${esc(p.categoria)}</span>
+      <h3>${esc(p.nome)}</h3>
+      ${p.specs && p.specs.length ? `<div class="specs">${p.specs.map(s => `<span>${esc(s)}</span>`).join("")}</div>` : ""}
+      <div class="price"><span class="now">${brl(p.preco)}</span>${d ? `<span class="old">${brl(p.precoAntigo)}</span>` : ""}</div>
+      ${d ? `<div class="meter" aria-hidden="true">${meter}</div><span class="meter-label">Desconto de ${d}% sobre o preço anterior</span>` : ""}
+      <a class="buy" href="${esc(p.link)}" target="_blank" rel="sponsored noopener">Ver no Mercado Livre</a>
+    </div>
+  </article>`;
+}
+
+function render() {
+  const termo = q.value.trim().toLowerCase();
+  let lista = PRODUTOS.filter(p =>
+    (categoria === "Todas" || p.categoria === categoria) &&
+    (!termo || (p.nome + " " + p.categoria + " " + (p.specs || []).join(" ")).toLowerCase().includes(termo)));
+  const ord = {
+    desconto: (a, b) => desconto(b) - desconto(a),
+    menor: (a, b) => a.preco - b.preco,
+    maior: (a, b) => b.preco - a.preco,
+    recentes: (a, b) => (b.data || "").localeCompare(a.data || ""),
+  }[sort.value];
+  lista.sort(ord);
+  document.getElementById("count").textContent = `${lista.length} ${lista.length === 1 ? "oferta" : "ofertas"}`;
+  grid.innerHTML = lista.length ? lista.map(card).join("") : `<p class="empty">Nenhuma oferta encontrada. Tente outra busca ou categoria.</p>`;
+}
+
+q.addEventListener("input", render);
+sort.addEventListener("change", render);
+chips();
+render();
+</script>
+</body>
+</html>
